@@ -1,5 +1,10 @@
-// Global app controller
-import num from './test'
+import Search from './models/Search';
 
+const search = new Search('pizza');
 
-console.log(`I imported ${num} from another`);
+console.log(search);
+
+search.getResults();
+
+// 89aa1d84e87420f34a31e7e2255fecdc
+// https://www.food2fork.com/api/search
