@@ -1,10 +1,31 @@
 import Search from './models/Search';
 
-const search = new Search('pizza');
+/** Global state
+ * - Search object
+ * - Current recipe object
+ * - Shopping list object
+ * - Liked recipes
+ */
+const state = {
 
-console.log(search);
+};
 
-search.getResults();
+const controlSearch = async () => {
+  const query = 'pizza'; // TODO
+  if (query) {
+    state.search = new Search(query);
 
-// 89aa1d84e87420f34a31e7e2255fecdc
-// https://www.food2fork.com/api/search
+    await state.search.getResults();
+
+    console.log(state.search.result);
+  }
+
+}
+
+document.querySelector('.search').addEventListener('submit', e => {
+  e.preventDefault();
+  controlSearch();
+});
+
+
+// search.getResults();
