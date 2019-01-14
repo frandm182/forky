@@ -1,4 +1,5 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import { elements, renderLoader, clearLoader, renderButtons } from './views/base';
 import * as searchView from './views/searchView';
 
@@ -46,4 +47,6 @@ elements.searchResPages.addEventListener('click', e => {
 });
 
 
-// search.getResults();
+
+const r = new Recipe('47746');
+r.getRecipe();
