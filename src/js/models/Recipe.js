@@ -15,8 +15,6 @@ export default class Recipe {
       this.img = img;
       this.url = url;
       this.ingredients = ingredients;
-
-      console.log(this);
     } catch (error) {
       alert(error);
     }

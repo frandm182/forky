@@ -13,25 +13,29 @@ const state = {
 
 };
 
+// Search controller
 const controlSearch = async () => {
   const query = searchView.getInput();
-  console.log(query)
   if (query) {
     state.search = new Search(query);
     searchView.clearInput();
     searchView.clearResults();
 
     renderLoader(elements.searchRes);
-
-    await state.search.getResults();
-
-    clearLoader();
-
-    searchView.renderResults(state.search.result)
+    try {
+      await state.search.getResults();
+      clearLoader();  
+      searchView.renderResults(state.search.result)
+    } catch (error) {
+      alert(error);
+      clearLoader(); 
+    }
+    
   }
 
 }
 
+// Search events
 elements.searchForm.addEventListener('submit', e => {
   e.preventDefault();
   controlSearch();
@@ -47,6 +51,29 @@ elements.searchResPages.addEventListener('click', e => {
 });
 
 
+// Recipe controller
+const controlRecipe = async () => {
+  const id = window.location.hash.replace('#', '');
 
-const r = new Recipe('47746');
-r.getRecipe();
+  if (id) {
+    state.recipe = new Recipe(id);
+
+    try {
+      await state.recipe.getRecipe();
+
+      state.recipe.calcTime();
+      state.recipe.calcServings();
+  
+      console.log(state.recipe);
+    } catch (error) {
+      alert(error);
+    }
+    
+
+  }
+};
+
+// window.addEventListener('hashchange', controlRecipe);
+// window.addEventListener('load', controlRecipe);
+
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
